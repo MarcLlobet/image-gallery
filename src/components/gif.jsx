@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 import { copyToClipboard } from '../actions'
@@ -17,6 +18,8 @@ const Figcaption = styledSystem(
     right: 0,
     left: 0,
     margin: 10,
+    width: 'calc(100% - 20px)',
+    height: 'calc(100% - 20px)',
     background: 'rgba(0,0,0,0.8)',
     opacity: 0
   })
@@ -28,6 +31,7 @@ const Figure = styledSystem(
     marginBottom: 10,
     display: 'block',
     position: 'relative',
+    float: 'left',
     cursor: 'pointer',
     zIndex: 0,
     [`&:hover ${Figcaption}`]: {
@@ -47,17 +51,17 @@ const Gif = ({
   id,
   url,
   title,
-  images: { fixed_width_downsampled: downsampled, fixed_width: src, fixed_width_still: fallback },
-  copyToClipboard
+  images: { fixed_width_still: image, fixed_width_small_still: small, downsized_still: fallback },
+  copyToClipboard: toClipboard
 }) => (
     <Figure
       key={id}
-      onClick={() => copyToClipboard(url)}
-      height={{ xs: 'auto', sm: `${src.height}px` }}
+      onClick={() => toClipboard(url)}
+      height={{ xs: 'auto', sm: `${image.height}px` }}
       width={{ xs: 1, sm: 'auto' }}
     >
       <Picture width={{ xs: 1, sm: 'auto' }}>
-        <Source srcSet={`${downsampled.url}, ${src.url} 2x`} />
+        <Source srcSet={`${image.url}`} />
         <Img width={{ xs: 1, sm: 'auto' }} src={fallback.url} alt={title} />
       </Picture>
       <Figcaption>
@@ -71,3 +75,19 @@ const mapDispatchToProps = {
 }
 
 export default connect(null, mapDispatchToProps)(Gif)
+
+Gif.propTypes = {
+  id: PropTypes.string,
+  url: PropTypes.string,
+  title: PropTypes.string,
+  images: PropTypes.objectOf(PropTypes.object),
+  copyToClipboard: PropTypes.func
+}
+
+Gif.defaultProps = {
+  id: '',
+  url: '',
+  title: '',
+  images: {},
+  copyToClipboard: () => { }
+}

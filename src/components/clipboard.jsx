@@ -1,18 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import styled, { keyframes, css } from 'styled-components'
+import styled from 'styled-components'
 import { system } from 'styled-system'
 import styledSystem from '../styledSystem'
-
-const showLink = keyframes`
-  from: {
-    transform: 'translateY(0)'
-  },
-  to: {
-    transform: 'translateY(100%)'
-  }
-`
 
 const Wrapper = styledSystem(
   styled.div`
@@ -53,29 +44,18 @@ const Link = styledSystem(
   `
 )
 
-const Clipboard = ({ copiedLink, displayLink }) => {
-  // ? {
-  //   animationName: () =>
-  //     css`
-  //         ${showLink}
-  //       `,
-  //   animationDuration: 250,
-  //   animationTimingFunction: 'ease-out'
-  // }
-
-  return (
-    <Wrapper>
-      <Div>
-        <Text
-          width={{ xs: 1, sm: 660, md: 880, lg: 1080, xl: 1460 }}
-          translateY={displayLink ? '-100%' : 0}
-        >
-          <Link href={copiedLink}>Link copied in the clipboard</Link>
-        </Text>
-      </Div>
-    </Wrapper>
-  )
-}
+const Clipboard = ({ copiedLink, displayLink }) => (
+  <Wrapper>
+    <Div paddingX={{ xs: 20, sm: 0 }}>
+      <Text
+        width={{ xs: 1, sm: 660, md: 880, lg: 1080, xl: 1460 }}
+        translateY={displayLink ? '-100%' : 0}
+      >
+        <Link href={copiedLink}>Link copied in the clipboard</Link>
+      </Text>
+    </Div>
+  </Wrapper>
+)
 
 const mapStateToProps = state => ({
   copiedLink: state.copiedLink,

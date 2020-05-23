@@ -17,6 +17,7 @@ const masonryOptions = {
 }
 
 const Div = styledSystem(styled.div``)
+const Gallery = styledSystem(styled(Masonry)``)
 
 const isNumber = num => Number(num) === num
 
@@ -68,7 +69,7 @@ class Grid extends React.Component {
           <Div width={1}>{childElements}</Div>
         </Media>
         <Media pc>
-          <Masonry options={{ ...masonryOptions, columnWidth: 200 }}>{childElements}</Masonry>
+          <Gallery options={{ ...masonryOptions, columnWidth: 200 }}>{childElements}</Gallery>
         </Media>
       </BottomScrollListener>
     )
