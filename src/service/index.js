@@ -1,3 +1,11 @@
+export const defaultParams = {
+  q: 'typography',
+  limit: 25,
+  offset: 0,
+  rating: 'G',
+  lang: 'en'
+}
+
 class Service {
   constructor(url, key) {
     this.url = url
@@ -16,14 +24,6 @@ class Service {
   endpoint(params = {}) {
     const parameters = new Map()
     parameters.set('api_key', this.key)
-
-    const defaultParams = {
-      q: 'typography',
-      limit: 25,
-      offset: 0,
-      rating: 'G',
-      lang: 'en'
-    }
 
     const modifiedParams = Object.entries(defaultParams).reduce(
       (prev, [param, value]) => ({

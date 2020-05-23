@@ -15,9 +15,11 @@ function* fetchClipboard(action) {
   yield put({ type: 'LINK_COPIED' })
 }
 
-function* fetchImages() {
-  const json = yield fetch(Service.endpoint().search).then(response => response.json())
-  yield put({ type: 'IMAGES_RECEIVED', json })
+function* fetchImages(action) {
+  const { params } = action
+  const json = yield fetch(Service.endpoint(params).search).then(response => response.json())
+  const { data: images, pagination } = json
+  yield put({ type: 'IMAGES_RECEIVED', images, pagination })
 }
 
 function* actionWatcher() {

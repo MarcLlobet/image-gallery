@@ -1,9 +1,17 @@
 const reducer = (state = {}, action) => {
   switch (action.type) {
     case 'GET_IMAGES':
-      return { ...state, loading: true }
+      return {
+        ...state,
+        loading: true
+      }
     case 'IMAGES_RECEIVED':
-      return { ...state, images: action.json, loading: false }
+      return {
+        ...state,
+        images: [...(state.images || []), ...action.images],
+        pagination: action.pagination,
+        loading: false
+      }
     case 'COPY_TO_CLIPBOARD':
       return { ...state, copiedLink: action.copiedLink }
     case 'SHOW_LINK':
