@@ -7,7 +7,7 @@ const theme = {
   // https://material-ui.com/customization/breakpoints/
   breakpoints: {
     xs: '0',
-    sm: '700px',
+    sm: '600px',
     md: '960px',
     lg: '1280px',
     xl: '1920px'

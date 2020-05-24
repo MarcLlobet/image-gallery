@@ -36,6 +36,7 @@ const Figure = styledSystem(
     float: 'left',
     cursor: 'pointer',
     zIndex: 0,
+    height: 'auto',
     [`&:hover ${Figcaption}`]: {
       opacity: 1
     }
@@ -43,7 +44,9 @@ const Figure = styledSystem(
 )
 const Picture = styledSystem(
   styled.picture({
-    float: 'left'
+    float: 'left',
+    width: '100%',
+    height: '100%'
   })
 )
 
@@ -53,15 +56,19 @@ const Title = styledSystem(
   })
 )
 
-const Img = styledSystem(styled.img``)
-const Source = styledSystem(styled.source``)
+const Img = styledSystem(
+  styled.img({
+    width: '100%',
+    height: '100%'
+  })
+)
 
 const Image = props => {
   const {
     id,
     title,
     username = 'Anonymous',
-    images: { fixed_width_still: image, downsized_still: fallback },
+    images: { fixed_width_small_still: small, fixed_width_still: image },
     openModal: handleClick
   } = props
 
@@ -69,12 +76,16 @@ const Image = props => {
     <Figure
       key={id}
       onClick={() => handleClick(props)}
-      height={{ xs: 'auto', sm: `${image.height}px` }}
-      width={{ xs: 1, sm: 'auto' }}
+      width={{
+        xs: 1,
+        sm: `calc((100% / 2) - 10px)`,
+        md: `calc((100% / 3) - 10px)`,
+        lg: `calc((100% / 4) - 10px)`,
+        xl: `calc((100% / 5) - 10px)`
+      }}
     >
-      <Picture width={{ xs: 1, sm: 'auto' }}>
-        <Source srcSet={image.url} />
-        <Img width={{ xs: 1, sm: 'auto' }} src={fallback.url} alt={title} />
+      <Picture>
+        <Img srcset={(`${image.url} 200w`, `${small.url} 100w`)} src={image.url} loading="lazy" />
       </Picture>
       <Figcaption>
         <Title>{title.split(' GIF')[0]}</Title>

@@ -11,12 +11,17 @@ import styledSystem from '../styledSystem'
 import { defaultParams } from '../service'
 
 const masonryOptions = {
-  transitionDuration: 0,
-  gutter: 10
+  percentPosition: true,
+  transitionDuration: 500,
+  gutter: 10,
+  isResizable: true,
+  isAnimated: true
 }
 
 const Div = styledSystem(styled.div``)
-const Gallery = styledSystem(styled(Masonry)``)
+const Gallery = styledSystem(styled(Masonry)`
+  width: 100%;
+`)
 
 const isNumber = num => Number(num) === num
 
