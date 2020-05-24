@@ -34,8 +34,13 @@ const Button = styledSystem(
     display: 'flex',
     alignItems: 'center',
     cursor: 'pointer',
+    transition: 'all 200ms ease-out',
     '&:hover': {
-      color: 'green'
+      color: '#00cb5c',
+      borderColor: '#00cb5c'
+    },
+    '&:focus': {
+      outline: 'none'
     }
   })
 )
@@ -129,7 +134,7 @@ const Modal = ({
           </Button>
         </Details>
         <BigImage>
-          <img width="100%" src={image.url} alt={name} />
+          <img width="100%" src={image.url} decoding="async" loading="lazy" alt={name} />
         </BigImage>
       </Content>
     </Inner>
@@ -144,3 +149,17 @@ const mapDispatchToProps = {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Modal)
+
+Modal.propTypes = {
+  displayModal: PropTypes.bool,
+  modalInfo: PropTypes.oneOfType([PropTypes.object]),
+  closeModal: PropTypes.func,
+  copyToClipboard: PropTypes.func
+}
+
+Modal.defaultProps = {
+  displayModal: false,
+  modalInfo: {},
+  closeModal: () => { },
+  copyToClipboard: () => { }
+}

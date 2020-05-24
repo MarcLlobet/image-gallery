@@ -27,7 +27,8 @@ const Text = styledSystem(
     padding: 10px 20px 6px;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    background: #8effc1;
+    color: #fff;
+    background: #00cb5c;
     transition: transform 350ms ease-in;
     ${system({
     translateY: {

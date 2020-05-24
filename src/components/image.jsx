@@ -17,13 +17,13 @@ const Figcaption = styledSystem(
     bottom: 0,
     right: 0,
     left: 0,
-    margin: 10,
-    width: 'calc(100% - 20px)',
-    height: 'calc(100% - 20px)',
-    background: 'rgba(0,0,0,0.8)',
+    margin: 15,
+    width: 'calc(100% - 30px)',
+    height: 'calc(100% - 30px)',
+    background: 'rgba(255, 255, 255, 0.8)',
     opacity: 0,
     transition: 'opacity 200ms ease-out',
-    color: 'white'
+    border: '2px solid #333'
   })
 )
 
@@ -42,6 +42,7 @@ const Figure = styledSystem(
     }
   })
 )
+
 const Picture = styledSystem(
   styled.picture({
     float: 'left',
@@ -58,6 +59,7 @@ const Title = styledSystem(
 
 const Img = styledSystem(
   styled.img({
+    float: 'left',
     width: '100%',
     height: '100%'
   })
@@ -85,7 +87,13 @@ const Image = props => {
       }}
     >
       <Picture>
-        <Img srcset={(`${image.url} 200w`, `${small.url} 100w`)} src={image.url} loading="lazy" />
+        <Img
+          srcset={(`${image.url} 200w`, `${small.url} 100w`)}
+          src={image.url}
+          decoding="async"
+          loading="lazy"
+          alt={title}
+        />
       </Picture>
       <Figcaption>
         <Title>{title.split(' GIF')[0]}</Title>
@@ -108,7 +116,6 @@ export default connect(null, mapDispatchToProps)(Image)
 
 Image.propTypes = {
   id: PropTypes.string,
-  url: PropTypes.string,
   title: PropTypes.string,
   username: PropTypes.string,
   images: PropTypes.objectOf(PropTypes.object),
@@ -117,7 +124,6 @@ Image.propTypes = {
 
 Image.defaultProps = {
   id: '',
-  url: '',
   title: '',
   username: '',
   images: {},
