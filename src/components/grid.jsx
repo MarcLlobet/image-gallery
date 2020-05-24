@@ -5,15 +5,14 @@ import Masonry from 'react-masonry-component'
 import BottomScrollListener from 'react-bottom-scroll-listener'
 import styled from 'styled-components'
 import { getImages } from '../actions'
-import Gif from './gif'
+import Image from './image'
 import Media from '../media'
 import styledSystem from '../styledSystem'
 import { defaultParams } from '../service'
 
 const masonryOptions = {
   transitionDuration: 0,
-  gutter: 10,
-  fitWidth: true
+  gutter: 10
 }
 
 const Div = styledSystem(styled.div``)
@@ -35,24 +34,23 @@ class Grid extends React.Component {
     /* Get the current state */
     const {
       getImages: getImagesAction,
-      pagination: { total_count: totalCount, offset, count } = {}
+      pagination: { total_count: totalCount, offset: currentOffset } = {}
     } = this.props
 
-    /* Increase limit if defined */
-    /* Use default limit if not defined */
-    const countLimit = isNumber(count) ? count + defaultParams.limit : defaultParams.limit
+    /* Get the default params */
+    const { limit, offset: defaultOffset } = defaultParams
 
-    /* Set offset to current count */
+    /* Add offset plus limit */
     /* Use default offset if not defined */
-    const countoffset = isNumber(offset) ? count : defaultParams.offset
+    const increasedOffset = isNumber(currentOffset) ? currentOffset + limit : defaultOffset
 
-    /* If limit is higher than the total, get the difference */
-    /* Otherwise use the default limit */
-    const totalLimit = countoffset + countLimit > totalCount ? totalCount - countoffset : countLimit
+    /* If offset plus limit is higher than the total, get the difference */
+    const offset =
+      increasedOffset + limit > totalCount ? totalCount - increasedOffset : increasedOffset
 
     const params = {
-      limit: totalLimit,
-      offset: countoffset
+      limit,
+      offset
     }
 
     getImagesAction(params)
@@ -61,7 +59,7 @@ class Grid extends React.Component {
   render() {
     const { images } = this.props
 
-    const childElements = images.map(image => <Gif key={image.id} {...image} />)
+    const childElements = images.map(image => <Image key={image.id} {...image} />)
 
     return (
       <BottomScrollListener onBottom={this.loadImages}>
@@ -69,7 +67,7 @@ class Grid extends React.Component {
           <Div width={1}>{childElements}</Div>
         </Media>
         <Media pc>
-          <Gallery options={{ ...masonryOptions, columnWidth: 200 }}>{childElements}</Gallery>
+          <Gallery options={{ ...masonryOptions }}>{childElements}</Gallery>
         </Media>
       </BottomScrollListener>
     )

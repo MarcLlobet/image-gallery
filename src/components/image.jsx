@@ -47,11 +47,11 @@ const Picture = styledSystem(
 const Img = styledSystem(styled.img``)
 const Source = styledSystem(styled.source``)
 
-const Gif = ({
+const Image = ({
   id,
   url,
   title,
-  images: { fixed_width_still: image, fixed_width_small_still: small, downsized_still: fallback },
+  images: { fixed_width_still: image, downsized_still: fallback },
   copyToClipboard: toClipboard
 }) => (
     <Figure
@@ -61,7 +61,7 @@ const Gif = ({
       width={{ xs: 1, sm: 'auto' }}
     >
       <Picture width={{ xs: 1, sm: 'auto' }}>
-        <Source srcSet={`${image.url}`} />
+        <Source srcSet={image.url} />
         <Img width={{ xs: 1, sm: 'auto' }} src={fallback.url} alt={title} />
       </Picture>
       <Figcaption>
@@ -74,9 +74,9 @@ const mapDispatchToProps = {
   copyToClipboard
 }
 
-export default connect(null, mapDispatchToProps)(Gif)
+export default connect(null, mapDispatchToProps)(Image)
 
-Gif.propTypes = {
+Image.propTypes = {
   id: PropTypes.string,
   url: PropTypes.string,
   title: PropTypes.string,
@@ -84,7 +84,7 @@ Gif.propTypes = {
   copyToClipboard: PropTypes.func
 }
 
-Gif.defaultProps = {
+Image.defaultProps = {
   id: '',
   url: '',
   title: '',
