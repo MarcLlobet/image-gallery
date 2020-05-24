@@ -18,6 +18,10 @@ const reducer = (state = {}, action) => {
       return { ...state, displayLink: true }
     case 'HIDE_LINK':
       return { ...state, displayLink: false }
+    case 'OPEN_MODAL':
+      return { ...state, displayModal: true, modalInfo: action.modalInfo }
+    case 'CLOSE_MODAL':
+      return { ...state, displayModal: false, modalInfo: undefined }
     default:
       return state
   }

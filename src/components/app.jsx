@@ -4,6 +4,7 @@ import { ThemeProvider, createGlobalStyle } from 'styled-components'
 import theme from '../theme'
 import Wrapper from './wrapper'
 import Grid from './grid'
+import Modal from './modal'
 import Clipboard from './clipboard'
 import Header from './header'
 
@@ -14,6 +15,7 @@ const App = () => (
       <Wrapper>
         <Header />
         <Grid />
+        <Modal />
         <Clipboard />
       </Wrapper>
     </ThemeProvider>

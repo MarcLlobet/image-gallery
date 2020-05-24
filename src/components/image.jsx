@@ -2,15 +2,15 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
-import { copyToClipboard } from '../actions'
+import { openModal } from '../actions'
 import styledSystem from '../styledSystem'
-import ClipboardImg from './clipboard.svg'
 
 const Figcaption = styledSystem(
   styled.figcaption({
     display: 'flex',
+    flexDirection: 'column',
     alignItems: 'center',
-    justifyItems: 'center',
+    justifyContent: 'center',
     position: 'absolute',
     zIndex: 1,
     top: 0,
@@ -21,7 +21,9 @@ const Figcaption = styledSystem(
     width: 'calc(100% - 20px)',
     height: 'calc(100% - 20px)',
     background: 'rgba(0,0,0,0.8)',
-    opacity: 0
+    opacity: 0,
+    transition: 'opacity 200ms ease-out',
+    color: 'white'
   })
 )
 
@@ -44,19 +46,29 @@ const Picture = styledSystem(
     float: 'left'
   })
 )
+
+const Title = styledSystem(
+  styled.span({
+    textTransform: 'capitalize'
+  })
+)
+
 const Img = styledSystem(styled.img``)
 const Source = styledSystem(styled.source``)
 
-const Image = ({
-  id,
-  url,
-  title,
-  images: { fixed_width_still: image, downsized_still: fallback },
-  copyToClipboard: toClipboard
-}) => (
+const Image = props => {
+  const {
+    id,
+    title,
+    username = 'Anonymous',
+    images: { fixed_width_still: image, downsized_still: fallback },
+    openModal: handleClick
+  } = props
+
+  return (
     <Figure
       key={id}
-      onClick={() => toClipboard(url)}
+      onClick={() => handleClick(props)}
       height={{ xs: 'auto', sm: `${image.height}px` }}
       width={{ xs: 1, sm: 'auto' }}
     >
@@ -65,13 +77,20 @@ const Image = ({
         <Img width={{ xs: 1, sm: 'auto' }} src={fallback.url} alt={title} />
       </Picture>
       <Figcaption>
-        <Img width={25} height={25} margin="auto" src={ClipboardImg} alt="Copy to clipboard" />
+        <Title>{title.split(' GIF')[0]}</Title>
+        {username && (
+          <>
+            <span>by</span>
+            <Title>{username}</Title>
+          </>
+        )}
       </Figcaption>
     </Figure>
   )
+}
 
 const mapDispatchToProps = {
-  copyToClipboard
+  openModal
 }
 
 export default connect(null, mapDispatchToProps)(Image)
@@ -80,14 +99,16 @@ Image.propTypes = {
   id: PropTypes.string,
   url: PropTypes.string,
   title: PropTypes.string,
+  username: PropTypes.string,
   images: PropTypes.objectOf(PropTypes.object),
-  copyToClipboard: PropTypes.func
+  openModal: PropTypes.func
 }
 
 Image.defaultProps = {
   id: '',
   url: '',
   title: '',
+  username: '',
   images: {},
-  copyToClipboard: () => { }
+  openModal: () => { }
 }
