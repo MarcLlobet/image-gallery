@@ -1,4 +1,4 @@
-import 'lato-font'
+// import 'lato-font'
 import React from 'react'
 import { ThemeProvider, createGlobalStyle } from 'styled-components'
 import theme from '../theme'

@@ -1,5 +1,5 @@
 export const defaultParams = {
-  q: 'typography',
+  q: 'design',
   limit: 25,
   offset: 0,
   rating: 'G',

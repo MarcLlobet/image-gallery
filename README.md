@@ -1,3 +1,5 @@
+![image-gallery](image-gallery-screenshots.gif)
+
 # image-gallery
 The definitive image gallery of all times.
 
