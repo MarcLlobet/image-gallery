@@ -1,4 +1,4 @@
-![image-gallery](image-gallery-screenshots.gif)
+![image-gallery](image-gallery-screenshot.gif)
 
 # image-gallery
 The definitive image gallery of all times.
