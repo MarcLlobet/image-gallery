@@ -20,7 +20,7 @@
   "homepage": "https://github.com/MarcLlobet/image-gallery#readme",
   "dependencies": {
     "@material-ui/core": "^4.9.14",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "enzyme-adapter-react-16": "^1.15.2",
     "lato-font": "^3.0.0",
     "prop-types": "^15.7.2",
